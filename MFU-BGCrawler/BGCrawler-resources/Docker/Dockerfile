@@ -3,8 +3,8 @@ FROM mcr.microsoft.com/mssql/server:2019-latest
 ENV ACCEPT_EULA='Y'
 ENV SA_PASSWORD='P@55word'
 
-WORKDIR app
+WORKDIR app/
 
 COPY Resources .
 
-#ENTRYPOINT ["./startupScript.sh"]
+ENTRYPOINT ["/bin/bash", "./startup.sh"]

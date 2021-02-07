@@ -15,7 +15,8 @@
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Docker\docker-compose.yml" />
     <None Include="$(MSBuildThisFileDirectory)Docker\Dockerfile" />
-    <None Include="$(MSBuildThisFileDirectory)Resources\setup.sql" />
-    <None Include="$(MSBuildThisFileDirectory)Resources\startupScript.sh" />
+    <None Include="$(MSBuildThisFileDirectory)Resources\startup.sh" />
+    <None Include="$(MSBuildThisFileDirectory)Resources\run-initialization.sh" />
+    <None Include="$(MSBuildThisFileDirectory)Resources\create-database.sql" />
   </ItemGroup>
 </Project>
