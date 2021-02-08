@@ -6,7 +6,7 @@ namespace BGCrawler_resources.Models
 {
     class Store
     {
-        private string Name;
-        private string Country;
+        private int store_id;
+        private string store_name;
     }
 }
