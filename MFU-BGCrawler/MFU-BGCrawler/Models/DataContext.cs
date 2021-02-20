@@ -15,6 +15,10 @@ namespace MFU_BGCrawler.Models
             optionsBuilder.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]);
         }
 
+        public DbSet<Boardgame> Boardgame { get; set; }
+        public DbSet<Boardgame> Country { get; set; }
+        public DbSet<Boardgame> Currency { get; set; }
+        public DbSet<Boardgame> ExchangeRate { get; set; }
         public DbSet<Store> Store { get; set; }
 
     }

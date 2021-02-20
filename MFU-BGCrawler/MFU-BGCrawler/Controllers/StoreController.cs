@@ -20,7 +20,7 @@ namespace MFU_BGCrawler.Controllers
                 var stores = db.Store.ToList();
                 return Ok(stores);
             }
-            catch(Exception e)
+            catch()
             {
                 return BadRequest();
             }

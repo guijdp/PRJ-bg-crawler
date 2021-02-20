@@ -9,10 +9,6 @@
     <Import_RootNamespace>BGCrawler_resources</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Boardgame.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Store.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Docker\docker-compose.yml" />
     <None Include="$(MSBuildThisFileDirectory)Docker\Dockerfile" />
     <None Include="$(MSBuildThisFileDirectory)Resources\startup.sh" />
