@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 
 namespace MFU_BGCrawler.Models
 {
@@ -37,7 +38,9 @@ namespace MFU_BGCrawler.Models
 
             IList<Store> defaultStores = new List<Store>
             {
-                new Store() { Name = "Fantazy Welt" }
+                new Store() { Name = "Fantazy Welt" },
+                new Store() { Name = "UG Cardstore" },
+                new Store() { Name = "ZATU Games" }
             };
             context.Store.AddRange(defaultStores);
 
@@ -45,14 +48,28 @@ namespace MFU_BGCrawler.Models
             {
                 new Currency() { IsoCode = "EUR" },
                 new Currency() { IsoCode = "BRL" },
+                new Currency() { IsoCode = "USD" },
             };
             context.Currency.AddRange(defaultCurrencies);
 
             IList<Country> defaultCountries = new List<Country>
             {
-                new Country() { CountryName = "Germany", Stores = defaultStores, Currency = defaultCurrencies[0]}
+                new Country() { CountryName = "Germany", Stores = defaultStores, Currency = defaultCurrencies[0]},
+                new Country() { CountryName = "Brazil", Stores = null, Currency = defaultCurrencies[1]},
+                new Country() { CountryName = "United States", Stores = null, Currency = defaultCurrencies[2]}
             };
             context.Country.AddRange(defaultCountries);
+
+            IList<ExchangeRate> exchangeRates = new List<ExchangeRate>
+            {
+                new ExchangeRate() { FromCurrencyId = 1, ToCurrencyId = 2, Rate = 6.52m},
+                new ExchangeRate() { FromCurrencyId = 1, ToCurrencyId = 3, Rate = 1.21m},
+                new ExchangeRate() { FromCurrencyId = 2, ToCurrencyId = 1, Rate = 0.15m},
+                new ExchangeRate() { FromCurrencyId = 2, ToCurrencyId = 3, Rate = 0.19m},
+                new ExchangeRate() { FromCurrencyId = 3, ToCurrencyId = 1, Rate = 0.83m},
+                new ExchangeRate() { FromCurrencyId = 3, ToCurrencyId = 2, Rate = 5.38m}
+            };
+            context.ExchangeRate.AddRange(exchangeRates);
 
             base.Seed(context);
         }
