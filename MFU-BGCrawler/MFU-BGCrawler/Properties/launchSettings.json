@@ -1,5 +1,4 @@
-﻿{
-  "$schema": "http://json.schemastore.org/launchsettings.json",
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -8,23 +7,23 @@
       "sslPort": 44324
     }
   },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/store/findall",
+      "launchUrl": "api/store/list/ZA",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "MFU_BGCrawler": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "api/store/findall",
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "launchUrl": "api/store/list/ZA",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "https://localhost:5001;http://localhost:5000"
     }
   }
 }

@@ -1,30 +1,17 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using MFU_BGCrawler.Models;
+﻿using MFU_BGCrawler.DbModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace MFU_BGCrawler.Controllers
 {
     [Route("api/country")]
     public class CountryController : Controller
     {
-        private BGSniperContext db = new BGSniperContext();
-
-        [Produces("application/json")]
-        [HttpGet("findall")]
-        public async Task<IActionResult> FindAll()
+        private readonly BGSniperContext _dbContext;
+        private readonly ILogger _logger;
+        public CountryController(BGSniperContext dbContext, ILogger logger)
         {
-            try
-            {
-                var countries = db.Country.Select(c => new { c.Id, c.CountryName, c.Currency, stores = c.Stores}).ToList();
-                return Ok(countries);
-            }
-            catch (Exception e)
-            {
-                return BadRequest();
-            }
+            
         }
-
     }
 }

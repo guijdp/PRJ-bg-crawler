@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MFU_BGCrawler.Models
+namespace MFU_BGCrawler.DbModels
 {
-    public class ExchangeRate
+    public class ExchangeRate : BaseEntity
     {
         [Key]
         [Column("from_currency", Order = 1)]

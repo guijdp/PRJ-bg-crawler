@@ -1,8 +1,13 @@
+using MFU_BGCrawler.DbModels;
+using MFU_BGCrawler.Logger;
+using MFU_BGCrawler.Services;
+using MFU_BGCrawler.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace MFU_BGCrawler
 {
@@ -17,6 +22,11 @@ namespace MFU_BGCrawler
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IDbContext, BGSniperContext>();
+            services.AddTransient<IRepository<Store>, Repository<Store>>();
+            services.AddTransient<IStoreService, StoreService>();
+            services.AddSingleton<ILogger, ConsoleLogger>();
+
             services.AddControllers();
             services.AddMvc(option => option.EnableEndpointRouting = false);
         }
@@ -27,6 +37,13 @@ namespace MFU_BGCrawler
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            //{
+            //    var context = serviceScope.ServiceProvider.GetRequiredService<BGSniperContext>();
+            //    context.Database.Migrate();
+            //}
+
 
             app.UseHttpsRedirection();
             app.UseRouting();
