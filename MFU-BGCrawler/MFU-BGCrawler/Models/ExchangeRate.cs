@@ -1,14 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MFU_BGCrawler.Models
 {
     public class ExchangeRate
     {
-        [Column("from_currency")]
-        public Currency FromCurrency { get; set; }
-        [Column("to_currency")]
-        public Currency ToCurrency { get; set; }
+        [Key]
+        [Column("from_currency", Order = 1)]
+        public int FromCurrencyId { get; set; }
+        [Key]
+        [Column("to_currency", Order = 2)]
+        public int ToCurrencyId { get; set; }
         [Column("exchange_rate")]
-        public decimal Currency { get; set; }
+        public decimal Rate { get; set; }
     }
 }

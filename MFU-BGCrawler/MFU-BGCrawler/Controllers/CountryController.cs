@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MFU_BGCrawler.Controllers
 {
-    [Route("api/store")]
-    public class StoreController : Controller
+    [Route("api/country")]
+    public class CountryController : Controller
     {
         private BGSniperContext db = new BGSniperContext();
 
@@ -17,10 +17,10 @@ namespace MFU_BGCrawler.Controllers
         {
             try
             {
-                var stores = db.Store.ToList();
-                return Ok(stores);
+                var countries = db.Country.Select(c => new { c.Id, c.CountryName, c.Currency, stores = c.Stores}).ToList();
+                return Ok(countries);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return BadRequest();
             }

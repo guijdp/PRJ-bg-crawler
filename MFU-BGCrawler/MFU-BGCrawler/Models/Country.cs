@@ -11,6 +11,7 @@ namespace MFU_BGCrawler.Models
         }
 
         [Column("country_id")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Column("country_name")]
         public string CountryName { get; set; }
