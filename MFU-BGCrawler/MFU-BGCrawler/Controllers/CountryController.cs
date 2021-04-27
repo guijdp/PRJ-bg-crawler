@@ -1,17 +1,23 @@
-﻿using MFU_BGCrawler.DbModels;
+﻿using MFU_BGCrawler.Model;
+using MFU_BGCrawler.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using System;
 
 namespace MFU_BGCrawler.Controllers
 {
-    [Route("api/country")]
+    [Route("api/[controller]")]
     public class CountryController : Controller
     {
-        private readonly BGSniperContext _dbContext;
-        private readonly ILogger _logger;
-        public CountryController(BGSniperContext dbContext, ILogger logger)
+        private readonly ICountryService _countryService;
+
+        public CountryController(ICountryService countryService)
         {
-            
+            _countryService = countryService ?? throw new ArgumentNullException(nameof(countryService));
         }
+
+        [HttpGet("get")] public IActionResult Get() => Json(_countryService.Get());
+        [HttpGet("get/{id}")] public IActionResult Find(int id) => Json(_countryService.Find(id));
+
+        [HttpPost("add")] public IActionResult Insert([FromBody] Country country) => Json(_countryService.Insert(country));
     }
 }

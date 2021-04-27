@@ -6,36 +6,36 @@ namespace MFU_BGCrawler.Services
 {
     public class StoreService : IStoreService
     {
-        private readonly IRepository<Store> _storeRepository;
+        private readonly BGSniperContext _repository;
 
-        public StoreService(IRepository<Store> storeRepository)
+        public StoreService(BGSniperContext repository)
         {
-            _storeRepository = storeRepository;
+            _repository = repository;
         }
 
-        public IQueryable<Store> GetStores()
+        public DbcStore[] Get()
         {
-            return _storeRepository.Table;
+            return _repository.Store.ToArray();
         }
 
-        public Store GetStore(long id)
+        public DbcStore Find(long id)
         {
-            return _storeRepository.GetById(id);
+            return _repository.Store.FirstOrDefault(s => s.ID == id);
         }
 
-        public void InsertStore(Store store)
+        public DbcStore Insert(Store store)
         {
-            _storeRepository.Insert(store);
+            return new DbcStore();//todo
         }
 
-        public void UpdateStore(Store store)
+        public DbcStore Update(DbcStore store)
         {
-            _storeRepository.Update(store);
+            return store;//todo
         }
 
-        public void DeleteStore(Store store)
+        public DbcStore Delete(DbcStore store)
         {
-            _storeRepository.Delete(store);
+            return store;//todo
         }
     }
 }

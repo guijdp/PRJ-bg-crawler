@@ -22,12 +22,20 @@ namespace MFU_BGCrawler
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IDbContext, BGSniperContext>();
-            services.AddTransient<IRepository<Store>, Repository<Store>>();
+
             services.AddTransient<IStoreService, StoreService>();
+            services.AddTransient<ICurrencyService, CurrencyService>();
+            services.AddTransient<ICountryService, CountryService>();
+            services.AddTransient<IBoardgameService, BoardgameService>();
+            services.AddTransient<IHistoricalPriceService, HistoricalPriceService>();
+            services.AddTransient<IExchangeRateService, ExchangeRateService>();
+
+            services.AddSingleton<BGSniperContext>();
             services.AddSingleton<ILogger, ConsoleLogger>();
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
             services.AddMvc(option => option.EnableEndpointRouting = false);
         }
 
@@ -37,13 +45,6 @@ namespace MFU_BGCrawler
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            //using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            //{
-            //    var context = serviceScope.ServiceProvider.GetRequiredService<BGSniperContext>();
-            //    context.Database.Migrate();
-            //}
-
 
             app.UseHttpsRedirection();
             app.UseRouting();
