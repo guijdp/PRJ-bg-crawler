@@ -16,7 +16,7 @@ namespace MFU_BGCrawler.Controllers
         }
 
         [HttpGet("get")] public IActionResult Get() => Json(_boardGameService.Get());
-        [HttpGet("get/{id}")] public IActionResult Find(int id) => Json(_boardGameService.Find(id));
+        [HttpGet("get/{id}")] public IActionResult Find(Guid id) => Json(_boardGameService.Find(id));
 
         [HttpPost("add")] public IActionResult Insert([FromBody] DbcBoardgame boardGame) => Json(_boardGameService.Insert(boardGame));
     }

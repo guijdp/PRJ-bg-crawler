@@ -1,6 +1,7 @@
 ﻿using MFU_BGCrawler.DbModels;
 using MFU_BGCrawler.Model;
 using MFU_BGCrawler.Services.Interfaces;
+using System;
 using System.Linq;
 
 namespace MFU_BGCrawler.Services
@@ -19,7 +20,7 @@ namespace MFU_BGCrawler.Services
             return _repository.Currency.ToArray();
         }
 
-        public DbcCurrency Find(long id)
+        public DbcCurrency Find(Guid id)
         {
             return _repository.Currency.FirstOrDefault(c => c.Id == id);
         }

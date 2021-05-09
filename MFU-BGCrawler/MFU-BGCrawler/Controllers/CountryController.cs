@@ -16,7 +16,7 @@ namespace MFU_BGCrawler.Controllers
         }
 
         [HttpGet("get")] public IActionResult Get() => Json(_countryService.Get());
-        [HttpGet("get/{id}")] public IActionResult Find(int id) => Json(_countryService.Find(id));
+        [HttpGet("get/{id}")] public IActionResult Find(Guid id) => Json(_countryService.Find(id));
 
         [HttpPost("add")] public IActionResult Insert([FromBody] Country country) => Json(_countryService.Insert(country));
     }

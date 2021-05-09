@@ -16,7 +16,7 @@ namespace MFU_BGCrawler.Controllers
         }
 
         [HttpGet("get")] public IActionResult Get() => Json(_currencyService.Get());
-        [HttpGet("get/{id}")] public IActionResult Find(int id) => Json(_currencyService.Find(id));
+        [HttpGet("get/{id}")] public IActionResult Find(Guid id) => Json(_currencyService.Find(id));
 
         [HttpPost("add")] public IActionResult Insert([FromBody] Currency currency) => Json(_currencyService.Insert(currency));
     }

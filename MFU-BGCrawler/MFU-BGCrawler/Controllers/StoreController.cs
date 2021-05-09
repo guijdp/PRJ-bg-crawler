@@ -17,7 +17,7 @@ namespace MFU_BGCrawler.Controllers
 
         [HttpGet("get")] public IActionResult Get() => Json(_storeService.Get());
 
-        [HttpGet("get/{id}")] public IActionResult Find(int id) => Json(_storeService.Find(id));
+        [HttpGet("get/{id}")] public IActionResult Find(Guid id) => Json(_storeService.Find(id));
 
         [HttpPost("add")] public IActionResult Insert([FromBody] Store store) => Json(_storeService.Insert(store));
     }

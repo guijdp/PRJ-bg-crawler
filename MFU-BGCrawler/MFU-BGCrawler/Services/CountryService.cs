@@ -1,6 +1,7 @@
 ﻿using MFU_BGCrawler.DbModels;
 using MFU_BGCrawler.Model;
 using MFU_BGCrawler.Services.Interfaces;
+using System;
 using System.Linq;
 
 namespace MFU_BGCrawler.Services
@@ -19,7 +20,7 @@ namespace MFU_BGCrawler.Services
             return _repository.Country.ToArray();
         }
 
-        public DbcCountry Find(long id)
+        public DbcCountry Find(Guid id)
         {
             return _repository.Country.FirstOrDefault(c => c.Id == id);
         }

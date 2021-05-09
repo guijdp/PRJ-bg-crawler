@@ -1,5 +1,6 @@
 ﻿using MFU_BGCrawler.DbModels;
 using MFU_BGCrawler.Services.Interfaces;
+using System;
 using System.Linq;
 
 namespace MFU_BGCrawler.Services
@@ -18,7 +19,7 @@ namespace MFU_BGCrawler.Services
             return _repository.Store.ToArray();
         }
 
-        public DbcStore Find(long id)
+        public DbcStore Find(Guid id)
         {
             return _repository.Store.FirstOrDefault(s => s.Id == id);
         }
