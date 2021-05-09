@@ -21,7 +21,7 @@ namespace MFU_BGCrawler.Services
 
         public DbcCountry Find(long id)
         {
-            return _repository.Country.FirstOrDefault(c => c.ID == id);
+            return _repository.Country.FirstOrDefault(c => c.Id == id);
         }
 
         public DbcCountry Insert(Country country)

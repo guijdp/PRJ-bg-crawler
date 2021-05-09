@@ -20,7 +20,7 @@ namespace MFU_BGCrawler.Services
 
         public DbcBoardgame Find(long id)
         {
-            return _repository.Boardgame.FirstOrDefault(c => c.ID == id);
+            return _repository.Boardgame.FirstOrDefault(c => c.Id == id);
         }
 
         public DbcBoardgame Insert(DbcBoardgame boardGame)

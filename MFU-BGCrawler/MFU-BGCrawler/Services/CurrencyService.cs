@@ -21,7 +21,7 @@ namespace MFU_BGCrawler.Services
 
         public DbcCurrency Find(long id)
         {
-            return _repository.Currency.FirstOrDefault(c => c.ID == id);
+            return _repository.Currency.FirstOrDefault(c => c.Id == id);
         }
 
 

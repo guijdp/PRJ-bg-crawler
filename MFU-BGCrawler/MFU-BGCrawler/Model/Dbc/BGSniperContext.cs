@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using MFU_BGCrawler.Model.Dbc;
 
@@ -13,10 +14,6 @@ namespace MFU_BGCrawler.DbModels
             Database.SetInitializer(new BGSniperInitializer());
         }
 
-        public new IDbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity
-        {
-            return base.Set<TEntity>();
-        }
         public DbSet<DbcStore> Store { get; set; }
         public DbSet<DbcCurrency> Currency { get; set; }
         public DbSet<DbcCountry> Country { get; set; }
@@ -75,9 +72,7 @@ namespace MFU_BGCrawler.DbModels
 
             IList<DbcHistoricalPrice> historicalPrices = new List<DbcHistoricalPrice>
             {
-                new DbcHistoricalPrice() { BoardGameId = 1, StoreId = 2 ,DateTime = DateTime.UtcNow},
-                new DbcHistoricalPrice() { BoardGameId = 2, StoreId = 2 ,DateTime = DateTime.UtcNow},
-                new DbcHistoricalPrice() { BoardGameId = 3, StoreId = 2 ,DateTime = DateTime.UtcNow}
+                new DbcHistoricalPrice() { BoardGame = germanStores[1].Boardgames.First(), Store = germanStores[1] ,DateTime = DateTime.UtcNow}
             };
             context.HistoricalPrice.AddRange(historicalPrices);
         }

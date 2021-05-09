@@ -20,7 +20,7 @@ namespace MFU_BGCrawler.Services
 
         public DbcStore Find(long id)
         {
-            return _repository.Store.FirstOrDefault(s => s.ID == id);
+            return _repository.Store.FirstOrDefault(s => s.Id == id);
         }
 
         public DbcStore Insert(Store store)
