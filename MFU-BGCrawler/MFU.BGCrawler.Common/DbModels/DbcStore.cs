@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace MFU_BGCrawler.DbModels
@@ -11,7 +10,7 @@ namespace MFU_BGCrawler.DbModels
             Boardgames = new HashSet<DbcBoardgame>();
         }
 
-        [Column("store_name")] public string Name { get; set; }
+        public string Name { get; set; }
 
         [JsonProperty(Order = int.MaxValue)]
         public DbcCountry Country { get; set; }

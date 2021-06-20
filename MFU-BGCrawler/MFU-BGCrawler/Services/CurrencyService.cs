@@ -1,44 +1,88 @@
-﻿using MFU_BGCrawler.DbModels;
+﻿using System;
+using System.Linq;
+using AutoMapper;
+using MFU_BGCrawler.DbModels;
 using MFU_BGCrawler.Model;
 using MFU_BGCrawler.Services.Interfaces;
-using System;
-using System.Linq;
 
 namespace MFU_BGCrawler.Services
 {
     public class CurrencyService : ICurrencyService
     {
         private readonly BGSniperContext _repository;
+        private readonly IMapper _mapper;
 
-        public CurrencyService(BGSniperContext currencyRepository)
+        public CurrencyService(BGSniperContext currencyRepository, IMapper mapper)
         {
             _repository = currencyRepository;
+            _mapper = mapper;
         }
 
-        public DbcCurrency[] Get()
-        {
-            return _repository.Currency.ToArray();
-        }
+        public DbcCurrency[] Get() => _repository.Currency.ToArray();
 
-        public DbcCurrency Find(Guid id)
-        {
-            return _repository.Currency.FirstOrDefault(c => c.Id == id);
-        }
-
+        public DbcCurrency Find(Guid id) => _repository.Currency.FirstOrDefault(c => c.Id == id);
 
         public DbcCurrency Insert(Currency currency)
         {
-            throw new System.NotImplementedException();//todo
+            try
+            {
+                var entry = new DbcCurrency()
+                {
+                    IsoCode = currency.IsoCode
+                };
+
+                _repository.Currency.Add(entry);
+                _repository.SaveChanges();
+
+                return entry;
+            }
+            catch (Exception e)
+            {
+                //Todo: Log error here
+                throw e;
+            }
         }
 
         public DbcCurrency Update(DbcCurrency currency)
         {
-            throw new System.NotImplementedException();//todo
+            try
+            {
+                var entry = Find(currency.Id);
+                if (entry == null)
+                    throw new Exception($"Currency with Id {currency.Id} does not exist");
+
+                _repository.Currency.Attach(entry);
+
+                entry.ModifiedDate = DateTime.UtcNow;
+                entry.IsoCode = currency.IsoCode;
+                _repository.SaveChanges();
+                return entry;
+            }
+            catch (Exception ex)
+            {
+                //Todo: Log error
+                throw ex;
+            }
         }
 
         public DbcCurrency Delete(DbcCurrency currency)
         {
-            throw new System.NotImplementedException();//todo
+            var entry = Find(currency.Id);
+            if (entry == null)
+                return null;
+
+            try
+            {
+                _repository.Currency.Remove(entry);
+                _repository.SaveChanges();
+                return currency;
+            }
+            catch (Exception ex)
+            {
+                //Todo: Log error
+                _repository.Entry(entry).Reload();
+                throw ex.InnerException;
+            }
         }
     }
 }

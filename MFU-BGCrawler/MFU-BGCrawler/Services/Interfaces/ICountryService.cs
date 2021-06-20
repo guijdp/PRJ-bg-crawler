@@ -6,7 +6,7 @@ namespace MFU_BGCrawler.Services.Interfaces
 {
     public interface ICountryService
     {
-        DbcCountry[] Get();
+        Country[] Get();
         DbcCountry Find(Guid id);
         DbcCountry Insert(Country country);
         DbcCountry Update(DbcCountry country);

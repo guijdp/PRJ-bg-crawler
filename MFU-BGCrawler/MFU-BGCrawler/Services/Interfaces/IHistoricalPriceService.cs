@@ -1,4 +1,4 @@
-﻿using MFU_BGCrawler.Model.Dbc;
+﻿using MFU_BGCrawler.DbModels;
 
 namespace MFU_BGCrawler.Services.Interfaces
 {

@@ -6,7 +6,7 @@ namespace MFU_BGCrawler.DbModels
 {
     public class DbcExchangeRate : BaseEntity
     {
-        [Column("exchange_rate")] public decimal Rate { get; set; }
+        public decimal Rate { get; set; }
 
         [Key]
         [JsonProperty(Order = int.MaxValue)]

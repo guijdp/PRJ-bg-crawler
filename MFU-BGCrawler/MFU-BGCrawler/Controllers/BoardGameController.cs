@@ -19,5 +19,7 @@ namespace MFU_BGCrawler.Controllers
         [HttpGet("get/{id}")] public IActionResult Find(Guid id) => Json(_boardGameService.Find(id));
 
         [HttpPost("add")] public IActionResult Insert([FromBody] DbcBoardgame boardGame) => Json(_boardGameService.Insert(boardGame));
+        //[HttpPost("update")] public IActionResult Update([FromBody] DbcBoardgame currency) => Json(_currencyService.Update(currency));
+        //[HttpPost("delete")] public IActionResult Delete([FromBody] DbcBoardgame currency) => Json(_currencyService.Delete(currency));
     }
 }

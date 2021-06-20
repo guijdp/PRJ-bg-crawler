@@ -1,7 +1,8 @@
-﻿using MFU_BGCrawler.Model;
+﻿using System;
+using MFU_BGCrawler.DbModels;
+using MFU_BGCrawler.Model;
 using MFU_BGCrawler.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace MFU_BGCrawler.Controllers
 {
@@ -10,14 +11,29 @@ namespace MFU_BGCrawler.Controllers
     {
         private readonly ICurrencyService _currencyService;
 
-        public CurrencyController(ICurrencyService countryService)
+        public CurrencyController(ICurrencyService currencyService)
         {
-            _currencyService = countryService ?? throw new ArgumentNullException(nameof(countryService));
+            _currencyService = currencyService ?? throw new ArgumentNullException(nameof(currencyService));
         }
 
-        [HttpGet("get")] public IActionResult Get() => Json(_currencyService.Get());
-        [HttpGet("get/{id}")] public IActionResult Find(Guid id) => Json(_currencyService.Find(id));
+        [HttpGet("get")]
+        public IActionResult Get()
+            => Json(_currencyService.Get());
 
-        [HttpPost("add")] public IActionResult Insert([FromBody] Currency currency) => Json(_currencyService.Insert(currency));
+        [HttpGet("get/{id}")]
+        public IActionResult Find(Guid id)
+            => Json(_currencyService.Find(id));
+
+        [HttpPost("add")]
+        public IActionResult Insert([FromBody] Currency currency)
+            => Json(_currencyService.Insert(currency));
+
+        [HttpPost("update")]
+        public IActionResult Update([FromBody] DbcCurrency currency)
+            => Json(_currencyService.Update(currency));
+
+        [HttpPost("delete")]
+        public IActionResult Delete([FromBody] DbcCurrency currency)
+            => Json(_currencyService.Delete(currency));
     }
 }

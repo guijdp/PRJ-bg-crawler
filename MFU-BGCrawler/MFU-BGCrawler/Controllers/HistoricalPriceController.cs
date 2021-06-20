@@ -1,5 +1,5 @@
 ﻿using System;
-using MFU_BGCrawler.Model.Dbc;
+using MFU_BGCrawler.DbModels;
 using MFU_BGCrawler.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

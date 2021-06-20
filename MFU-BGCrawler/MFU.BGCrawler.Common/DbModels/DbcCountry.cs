@@ -11,10 +11,10 @@ namespace MFU_BGCrawler.DbModels
             Stores = new HashSet<DbcStore>();
         }
 
-        [Column("country_name")] public string CountryName { get; set; }
+        public string CountryName { get; set; }
 
         [JsonProperty(Order = int.MaxValue)]
-        [Column("currency_id")] public DbcCurrency Currency { get; set; }
+        public virtual DbcCurrency Currency { get; set; }
 
         [JsonProperty(Order = int.MaxValue)]
         public virtual ICollection<DbcStore> Stores { get; set; }

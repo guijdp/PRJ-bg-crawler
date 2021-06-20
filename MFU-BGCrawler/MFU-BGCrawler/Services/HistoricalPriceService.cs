@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using MFU_BGCrawler.DbModels;
-using MFU_BGCrawler.Model.Dbc;
 using MFU_BGCrawler.Services.Interfaces;
 
 namespace MFU_BGCrawler.Services

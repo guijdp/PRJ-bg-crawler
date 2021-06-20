@@ -1,14 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using MFU_BGCrawler.DbModels;
 using Newtonsoft.Json;
 
-namespace MFU_BGCrawler.Model.Dbc
+namespace MFU_BGCrawler.DbModels
 {
-    public class DbcHistoricalPrice
+    public class DbcHistoricalPrice : BaseEntity
     {
-
         [Key, Column(Order = 0)] public Guid StoreRefId { get; set; }
         [JsonProperty(Order = int.MaxValue)]
         [ForeignKey("StoreRefId")] public virtual DbcStore Store { get; set; }

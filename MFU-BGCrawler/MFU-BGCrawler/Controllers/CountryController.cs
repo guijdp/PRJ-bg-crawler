@@ -1,7 +1,8 @@
-﻿using MFU_BGCrawler.Model;
+﻿using System;
+using MFU_BGCrawler.DbModels;
+using MFU_BGCrawler.Model;
 using MFU_BGCrawler.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace MFU_BGCrawler.Controllers
 {
@@ -15,9 +16,24 @@ namespace MFU_BGCrawler.Controllers
             _countryService = countryService ?? throw new ArgumentNullException(nameof(countryService));
         }
 
-        [HttpGet("get")] public IActionResult Get() => Json(_countryService.Get());
-        [HttpGet("get/{id}")] public IActionResult Find(Guid id) => Json(_countryService.Find(id));
+        [HttpGet("get")]
+        public IActionResult Get()
+            => Json(_countryService.Get());
+        [HttpGet("get/{id}")]
 
-        [HttpPost("add")] public IActionResult Insert([FromBody] Country country) => Json(_countryService.Insert(country));
+        public IActionResult Find(Guid id)
+            => Json(_countryService.Find(id));
+
+        [HttpPost("add")]
+        public IActionResult Insert([FromBody] Country country)
+            => Json(_countryService.Insert(country));
+
+        [HttpPost("update")]
+        public IActionResult Update([FromBody] DbcCountry country)
+            => Json(_countryService.Update(country));
+
+        [HttpPost("delete")]
+        public IActionResult Delete([FromBody] DbcCountry country)
+            => Json(_countryService.Delete(country));
     }
 }
