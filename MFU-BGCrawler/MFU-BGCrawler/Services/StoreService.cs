@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MFU_BGCrawler.DbModels;
 using MFU_BGCrawler.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -17,11 +18,11 @@ namespace MFU_BGCrawler.Services
             _mapper = mapper;
         }
 
-        public Store[] Get() => _mapper.Map<Store[]>(_repository.Store.ToArray());
+        public StoreDTO[] Get() => _repository.Store.Include(s => s.Country).ToArray();
 
-        public DbcStore Find(Guid id) => _repository.Store.FirstOrDefault(s => s.Id == id);
+        public StoreDTO Find(Guid id) => _repository.Store.FirstOrDefault(s => s.Id == id);
 
-        public DbcStore Insert(Store store)
+        public StoreDTO Insert(Store store)
         {
             try
             {
@@ -29,7 +30,7 @@ namespace MFU_BGCrawler.Services
                 if (country == null)
                     throw new Exception($"Country named {store.Country} does not exist");
 
-                var entry = new DbcStore()
+                var entry = new StoreDTO()
                 {
                     Name = store.Name,
                     Country = country
@@ -47,7 +48,7 @@ namespace MFU_BGCrawler.Services
             }
         }
 
-        public DbcStore Update(DbcStore store)
+        public StoreDTO Update(StoreDTO store)
         {
             try
             {
@@ -73,7 +74,7 @@ namespace MFU_BGCrawler.Services
             }
         }
 
-        public DbcStore Delete(DbcStore store)
+        public StoreDTO Delete(StoreDTO store)
         {
             var entry = Find(store.Id);
             if (entry == null)

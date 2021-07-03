@@ -14,29 +14,29 @@ namespace MFU_BGCrawler.Services
             _repository = repository;
         }
 
-        public DbcBoardgame[] Get()
+        public BoardgameDTO[] Get()
         {
             return _repository.Boardgame.ToArray();
         }
 
-        public DbcBoardgame Find(Guid id)
+        public BoardgameDTO Find(Guid id)
         {
             return _repository.Boardgame.FirstOrDefault(c => c.Id == id);
         }
 
-        public DbcBoardgame Insert(DbcBoardgame boardGame)
+        public BoardgameDTO Insert(BoardgameDTO boardGame)
         {
-            return new DbcBoardgame();//todo
+            return new BoardgameDTO();//todo
         }
 
-        public DbcBoardgame Update(DbcBoardgame boardGame)
+        public BoardgameDTO Update(BoardgameDTO boardGame)
         {
-            return new DbcBoardgame();//todo
+            return new BoardgameDTO();//todo
         }
 
-        public DbcBoardgame Delete(DbcBoardgame boardGame)
+        public BoardgameDTO Delete(BoardgameDTO boardGame)
         {
-            return new DbcBoardgame();//todo
+            return new BoardgameDTO();//todo
         }
     }
 }

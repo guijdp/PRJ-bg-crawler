@@ -13,25 +13,25 @@ namespace MFU_BGCrawler
             {
                 if (!context.Currency.Any())
                 {
-                    var euro = context.Currency.Add(new DbcCurrency() { IsoCode = "EUR" }).Entity;
-                    var real = context.Currency.Add(new DbcCurrency() { IsoCode = "BRL" }).Entity;
-                    var dolar = context.Currency.Add(new DbcCurrency() { IsoCode = "USD" }).Entity;
+                    var euro = context.Currency.Add(new CurrencyDTO() { IsoCode = "EUR" }).Entity;
+                    var real = context.Currency.Add(new CurrencyDTO() { IsoCode = "BRL" }).Entity;
+                    var dolar = context.Currency.Add(new CurrencyDTO() { IsoCode = "USD" }).Entity;
 
-                    var germany = context.Country.Add(new DbcCountry() { CountryName = "Germany", Currency = euro }).Entity;
-                    var brasil = context.Country.Add(new DbcCountry() { CountryName = "Brasil", Currency = real }).Entity;
-                    var usa = context.Country.Add(new DbcCountry() { CountryName = "USA", Currency = dolar }).Entity;
+                    var germany = context.Country.Add(new CountryDTO() { CountryName = "Germany", Currency = euro }).Entity;
+                    var brasil = context.Country.Add(new CountryDTO() { CountryName = "Brasil", Currency = real }).Entity;
+                    var usa = context.Country.Add(new CountryDTO() { CountryName = "USA", Currency = dolar }).Entity;
 
                     euro.Countries.Add(germany);
                     real.Countries.Add(brasil);
                     dolar.Countries.Add(usa);
 
 
-                    var glomhaven = context.Boardgame.Add(new DbcBoardgame() { GameName = "Gloomhaven" }).Entity;
-                    var seventhContinent = context.Boardgame.Add(new DbcBoardgame() { GameName = "7Th Continent" }).Entity;
-                    var mariposas = context.Boardgame.Add(new DbcBoardgame() { GameName = "Mariposas" }).Entity;
+                    var glomhaven = context.Boardgame.Add(new BoardgameDTO() { GameName = "Gloomhaven" }).Entity;
+                    var seventhContinent = context.Boardgame.Add(new BoardgameDTO() { GameName = "7Th Continent" }).Entity;
+                    var mariposas = context.Boardgame.Add(new BoardgameDTO() { GameName = "Mariposas" }).Entity;
 
-                    var fanazyWelt = context.Store.Add(new DbcStore() { Name = "FantazyWelt", Country = germany, Boardgames = new List<DbcBoardgame>() { glomhaven, seventhContinent } }).Entity;
-                    var zatu = context.Store.Add(new DbcStore() { Name = "ZATU", Country = germany, Boardgames = new List<DbcBoardgame>() { mariposas } }).Entity;
+                    var fanazyWelt = context.Store.Add(new StoreDTO() { Name = "FantazyWelt", Country = germany, Boardgames = new List<BoardgameDTO>() { glomhaven, seventhContinent } }).Entity;
+                    var zatu = context.Store.Add(new StoreDTO() { Name = "ZATU", Country = germany, Boardgames = new List<BoardgameDTO>() { mariposas } }).Entity;
 
                     //var ex1 = context.ExchangeRate.Add(new DbcExchangeRate() { FromCurrencyId = 1, ToCurrencyId = 2, Rate = 6.52m }).Entity;
                     //var ex2 = context.ExchangeRate.Add(new DbcExchangeRate() { FromCurrencyId = 1, ToCurrencyId = 3, Rate = 1.21m }).Entity;

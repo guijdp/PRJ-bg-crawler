@@ -29,11 +29,11 @@ namespace MFU_BGCrawler.Controllers
             => Json(_currencyService.Insert(currency));
 
         [HttpPost("update")]
-        public IActionResult Update([FromBody] DbcCurrency currency)
+        public IActionResult Update([FromBody] CurrencyDTO currency)
             => Json(_currencyService.Update(currency));
 
         [HttpPost("delete")]
-        public IActionResult Delete([FromBody] DbcCurrency currency)
+        public IActionResult Delete([FromBody] CurrencyDTO currency)
             => Json(_currencyService.Delete(currency));
     }
 }

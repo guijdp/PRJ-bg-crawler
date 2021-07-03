@@ -17,6 +17,6 @@ namespace MFU_BGCrawler.Controllers
 
         [HttpGet("get")] public IActionResult Get() => Json(_exchangeRateService.Get());
 
-        [HttpPost("add")] public IActionResult Insert([FromBody] DbcExchangeRate exchangeRate) => Json(_exchangeRateService.Insert(exchangeRate));
+        [HttpPost("add")] public IActionResult Insert([FromBody] ExchangeRateDTO exchangeRate) => Json(_exchangeRateService.Insert(exchangeRate));
     }
 }

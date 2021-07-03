@@ -4,7 +4,7 @@ namespace MFU_BGCrawler.Services.Interfaces
 {
     public interface IExchangeRateService
     {
-        DbcExchangeRate[] Get();
-        DbcExchangeRate Insert(DbcExchangeRate store);
+        ExchangeRateDTO[] Get();
+        ExchangeRateDTO Insert(ExchangeRateDTO store);
     }
 }

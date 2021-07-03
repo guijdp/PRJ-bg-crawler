@@ -17,6 +17,6 @@ namespace MFU_BGCrawler.Controllers
 
         [HttpGet("get")] public IActionResult Get() => Json(_historicalPriceService.Get());
 
-        [HttpPost("add")] public IActionResult Insert([FromBody] DbcHistoricalPrice historicalPrice) => Json(_historicalPriceService.Insert(historicalPrice));
+        [HttpPost("add")] public IActionResult Insert([FromBody] HistoricalPriceDTO historicalPrice) => Json(_historicalPriceService.Insert(historicalPrice));
     }
 }

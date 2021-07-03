@@ -8,12 +8,12 @@ namespace MFU_BGCrawler.Mappings
     {
         public AutoMapperProfile()
         {
-            CreateMap<DbcStore, Store>()
+            CreateMap<StoreDTO, Store>()
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.CountryName));
-            CreateMap<DbcCountry, Country>()
+            CreateMap<CountryDTO, Country>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.CountryName))
                 .ForMember(dest => dest.Currency, opt => opt.MapFrom(src => src.Currency.IsoCode));
-            CreateMap<DbcCurrency, Currency>();
+            CreateMap<CurrencyDTO, Currency>();
 
             //CreateMap<Country, DbcCountry>()
             //    .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Name));

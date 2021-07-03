@@ -18,15 +18,15 @@ namespace MFU_BGCrawler.Services
             _mapper = mapper;
         }
 
-        public DbcCurrency[] Get() => _repository.Currency.ToArray();
+        public CurrencyDTO[] Get() => _repository.Currency.ToArray();
 
-        public DbcCurrency Find(Guid id) => _repository.Currency.FirstOrDefault(c => c.Id == id);
+        public CurrencyDTO Find(Guid id) => _repository.Currency.FirstOrDefault(c => c.Id == id);
 
-        public DbcCurrency Insert(Currency currency)
+        public CurrencyDTO Insert(Currency currency)
         {
             try
             {
-                var entry = new DbcCurrency()
+                var entry = new CurrencyDTO()
                 {
                     IsoCode = currency.IsoCode
                 };
@@ -43,7 +43,7 @@ namespace MFU_BGCrawler.Services
             }
         }
 
-        public DbcCurrency Update(DbcCurrency currency)
+        public CurrencyDTO Update(CurrencyDTO currency)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace MFU_BGCrawler.Services
             }
         }
 
-        public DbcCurrency Delete(DbcCurrency currency)
+        public CurrencyDTO Delete(CurrencyDTO currency)
         {
             var entry = Find(currency.Id);
             if (entry == null)

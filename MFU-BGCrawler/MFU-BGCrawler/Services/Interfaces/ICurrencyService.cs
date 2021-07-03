@@ -6,10 +6,10 @@ namespace MFU_BGCrawler.Services.Interfaces
 {
     public interface ICurrencyService
     {
-        DbcCurrency[] Get();
-        DbcCurrency Find(Guid id);
-        DbcCurrency Insert(Currency currency);
-        DbcCurrency Update(DbcCurrency currency);
-        DbcCurrency Delete(DbcCurrency currency);
+        CurrencyDTO[] Get();
+        CurrencyDTO Find(Guid id);
+        CurrencyDTO Insert(Currency currency);
+        CurrencyDTO Update(CurrencyDTO currency);
+        CurrencyDTO Delete(CurrencyDTO currency);
     }
 }

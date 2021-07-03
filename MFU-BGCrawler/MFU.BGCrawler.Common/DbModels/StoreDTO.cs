@@ -3,19 +3,19 @@ using Newtonsoft.Json;
 
 namespace MFU_BGCrawler.DbModels
 {
-    public class DbcStore : BaseEntity
+    public class StoreDTO : BaseEntity
     {
-        public DbcStore()
+        public StoreDTO()
         {
-            Boardgames = new HashSet<DbcBoardgame>();
+            Boardgames = new HashSet<BoardgameDTO>();
         }
 
         public string Name { get; set; }
 
         [JsonProperty(Order = int.MaxValue)]
-        public DbcCountry Country { get; set; }
+        public CountryDTO Country { get; set; }
 
         [JsonProperty(Order = int.MaxValue)]
-        public virtual ICollection<DbcBoardgame> Boardgames { get; set; }
+        public virtual ICollection<BoardgameDTO> Boardgames { get; set; }
     }
 }

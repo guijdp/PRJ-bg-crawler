@@ -12,14 +12,14 @@ namespace MFU_BGCrawler.Services
         {
             _repository = repository;
         }
-        DbcHistoricalPrice[] IHistoricalPriceService.Get()
+        HistoricalPriceDTO[] IHistoricalPriceService.Get()
         {
             return _repository.HistoricalPrice.ToArray();
         }
 
-        public DbcHistoricalPrice Insert(DbcHistoricalPrice historicalPrice)
+        public HistoricalPriceDTO Insert(HistoricalPriceDTO historicalPrice)
         {
-            return new DbcHistoricalPrice();//Todo
+            return new HistoricalPriceDTO();//Todo
         }
 
     }

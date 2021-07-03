@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace MFU_BGCrawler.DbModels
 {
-    public class DbcExchangeRate : BaseEntity
+    public class ExchangeRateDTO : BaseEntity
     {
         public decimal Rate { get; set; }
 

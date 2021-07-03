@@ -4,6 +4,7 @@ using AutoMapper;
 using MFU_BGCrawler.DbModels;
 using MFU_BGCrawler.Model;
 using MFU_BGCrawler.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MFU_BGCrawler.Services
 {
@@ -18,11 +19,11 @@ namespace MFU_BGCrawler.Services
             _mapper = mapper;
         }
 
-        public Country[] Get() => _mapper.Map<Country[]>(_repository.Country.ToArray());
+        public CountryDTO[] Get() => _repository.Country.Include(c => c.Currency).ToArray();
 
-        public DbcCountry Find(Guid id) => _repository.Country.FirstOrDefault(c => c.Id == id);
+        public CountryDTO Find(Guid id) => _repository.Country.FirstOrDefault(c => c.Id == id);
 
-        public DbcCountry Insert(Country country)
+        public CountryDTO Insert(Country country)
         {
             try
             {
@@ -30,7 +31,7 @@ namespace MFU_BGCrawler.Services
                 if (currency == null)
                     throw new Exception($"Currency named {country.Currency} does not exist");
 
-                var entry = new DbcCountry()
+                var entry = new CountryDTO()
                 {
                     CountryName = country.Name,
                     Currency = currency
@@ -48,7 +49,7 @@ namespace MFU_BGCrawler.Services
             }
         }
 
-        public DbcCountry Update(DbcCountry country)
+        public CountryDTO Update(CountryDTO country)
         {
             try
             {
@@ -74,7 +75,7 @@ namespace MFU_BGCrawler.Services
             }
         }
 
-        public DbcCountry Delete(DbcCountry country)
+        public CountryDTO Delete(CountryDTO country)
         {
             var entry = Find(country.Id);
             if (entry == null)

@@ -6,23 +6,37 @@ namespace MFU_BGCrawler.DbModels
     {
         public BGSniperContext(DbContextOptions<BGSniperContext> options) : base(options) { }
 
-        public DbSet<DbcStore> Store { get; set; }
-        public DbSet<DbcCurrency> Currency { get; set; }
-        public DbSet<DbcCountry> Country { get; set; }
-        public DbSet<DbcBoardgame> Boardgame { get; set; }
-        public DbSet<DbcExchangeRate> ExchangeRate { get; set; }
-        public DbSet<DbcHistoricalPrice> HistoricalPrice { get; set; }
+        public DbSet<StoreDTO> Store { get; set; }
+        public DbSet<CurrencyDTO> Currency { get; set; }
+        public DbSet<CountryDTO> Country { get; set; }
+        public DbSet<BoardgameDTO> Boardgame { get; set; }
+        public DbSet<ExchangeRateDTO> ExchangeRate { get; set; }
+        public DbSet<HistoricalPriceDTO> HistoricalPrice { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<DbcStore>().ToTable("Store");
-            builder.Entity<DbcCurrency>().ToTable("Currency");
-            builder.Entity<DbcCountry>().ToTable("Country");
-            builder.Entity<DbcBoardgame>().ToTable("Boardgame");
-            builder.Entity<DbcExchangeRate>().ToTable("ExchangeRate")
+            builder.Entity<CurrencyDTO>().ToTable("Currency")
+                .HasMany(c => c.Countries)
+                .WithOne();
+
+            builder.Entity<CountryDTO>().ToTable("Country")
+                .HasOne(c => c.Currency)
+                .WithMany(c => c.Countries)
+                .IsRequired();
+
+            builder.Entity<StoreDTO>().ToTable("Store")
+                .HasOne(s => s.Country)
+                .WithMany(c => c.Stores)
+                .IsRequired();
+
+            builder.Entity<BoardgameDTO>().ToTable("Boardgame")
+                .HasMany(bg => bg.Stores)
+                .WithMany(c => c.Boardgames);
+
+            builder.Entity<ExchangeRateDTO>().ToTable("ExchangeRate")
                 .HasKey(ex => new { ex.FromCurrencyId, ex.ToCurrencyId });
 
-            builder.Entity<DbcHistoricalPrice>().ToTable("HistoricalPrice")
+            builder.Entity<HistoricalPriceDTO>().ToTable("HistoricalPrice")
                 .HasKey(h => new { h.StoreRefId, h.BoardGameRefId });
         }
     }

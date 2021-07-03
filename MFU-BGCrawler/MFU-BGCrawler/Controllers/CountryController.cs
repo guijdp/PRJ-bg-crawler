@@ -29,11 +29,11 @@ namespace MFU_BGCrawler.Controllers
             => Json(_countryService.Insert(country));
 
         [HttpPost("update")]
-        public IActionResult Update([FromBody] DbcCountry country)
+        public IActionResult Update([FromBody] CountryDTO country)
             => Json(_countryService.Update(country));
 
         [HttpPost("delete")]
-        public IActionResult Delete([FromBody] DbcCountry country)
+        public IActionResult Delete([FromBody] CountryDTO country)
             => Json(_countryService.Delete(country));
     }
 }

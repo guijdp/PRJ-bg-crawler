@@ -6,10 +6,10 @@ namespace MFU_BGCrawler.Services.Interfaces
 {
     public interface IStoreService
     {
-        Store[] Get();
-        DbcStore Find(Guid id);
-        DbcStore Insert(Store store);
-        DbcStore Update(DbcStore store);
-        DbcStore Delete(DbcStore store);
+        StoreDTO[] Get();
+        StoreDTO Find(Guid id);
+        StoreDTO Insert(Store store);
+        StoreDTO Update(StoreDTO store);
+        StoreDTO Delete(StoreDTO store);
     }
 }

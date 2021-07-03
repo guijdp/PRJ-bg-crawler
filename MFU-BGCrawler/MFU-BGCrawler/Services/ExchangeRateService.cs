@@ -13,14 +13,14 @@ namespace MFU_BGCrawler.Services
             _repository = repository;
         }
 
-        public DbcExchangeRate[] Get()
+        public ExchangeRateDTO[] Get()
         {
             return _repository.ExchangeRate.ToArray();
         }
 
-        public DbcExchangeRate Insert(DbcExchangeRate exchangeRate)
+        public ExchangeRateDTO Insert(ExchangeRateDTO exchangeRate)
         {
-            return new DbcExchangeRate();//todo
+            return new ExchangeRateDTO();//todo
         }
     }
 }

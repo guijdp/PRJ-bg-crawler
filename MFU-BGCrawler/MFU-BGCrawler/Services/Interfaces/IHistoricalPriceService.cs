@@ -4,7 +4,7 @@ namespace MFU_BGCrawler.Services.Interfaces
 {
     public interface IHistoricalPriceService
     {
-        DbcHistoricalPrice[] Get();
-        DbcHistoricalPrice Insert(DbcHistoricalPrice historicalPrice);
+        HistoricalPriceDTO[] Get();
+        HistoricalPriceDTO Insert(HistoricalPriceDTO historicalPrice);
     }
 }
