@@ -5,7 +5,7 @@ using BGScreener.Domain;
 
 namespace BGScreener
 {
-    public static class BGSniperExtensions
+    public static class BGSniperSeeder
     {
         public static void EnsureSeedData(this BGSniperContext context)
         {

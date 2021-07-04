@@ -18,7 +18,7 @@ namespace BGScreener.Services
             _mapper = mapper;
         }
 
-        public CurrencyDTO[] Get() => _repository.Currency.ToArray();
+        public CurrencyDTO[] Get() => _repository.Currency.OrderBy(c => c.IsoCode).ToArray();
 
         public CurrencyDTO Find(Guid id) => _repository.Currency.FirstOrDefault(c => c.Id == id);
 
@@ -26,14 +26,10 @@ namespace BGScreener.Services
         {
             try
             {
-                var entry = new CurrencyDTO()
-                {
-                    IsoCode = currency.IsoCode
-                };
+                var entry = _repository.Currency
+                    .Add(_mapper.Map<CurrencyDTO>(currency)).Entity;
 
-                _repository.Currency.Add(entry);
                 _repository.SaveChanges();
-
                 return entry;
             }
             catch (Exception e)

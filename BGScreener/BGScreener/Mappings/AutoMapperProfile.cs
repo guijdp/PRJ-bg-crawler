@@ -8,11 +8,16 @@ namespace BGScreener.Mappings
     {
         public AutoMapperProfile()
         {
+            CreateMap<Currency, CurrencyDTO>()
+                .ForMember(dest => dest.IsoCode, opt => opt.MapFrom(src => src.IsoCode));
+
             CreateMap<StoreDTO, Store>()
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.CountryName));
+
             CreateMap<CountryDTO, Country>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.CountryName))
                 .ForMember(dest => dest.Currency, opt => opt.MapFrom(src => src.Currency.IsoCode));
+
             CreateMap<CurrencyDTO, Currency>();
 
             //CreateMap<Country, DbcCountry>()

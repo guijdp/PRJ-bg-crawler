@@ -15,29 +15,25 @@ namespace BGScreener.DbModels
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<CurrencyDTO>()
-                .HasMany(c => c.Countries)
-                .WithOne();
+            var currency = builder.Entity<CurrencyDTO>();
+            currency.HasMany(c => c.Countries).WithOne();
+            currency.Property(c => c.IsoCode).HasMaxLength(3);
+            currency.HasIndex(c => c.IsoCode).IsUnique();
 
-            builder.Entity<CountryDTO>()
-                .HasOne(c => c.Currency)
-                .WithMany(c => c.Countries)
-                .IsRequired();
+            var country = builder.Entity<CountryDTO>();
+            country.HasOne(c => c.Currency).WithMany(c => c.Countries).IsRequired();
 
-            builder.Entity<StoreDTO>()
-                .HasOne(s => s.Country)
-                .WithMany(c => c.Stores)
-                .IsRequired();
+            var store = builder.Entity<StoreDTO>();
+            store.HasOne(s => s.Country).WithMany(c => c.Stores).IsRequired();
 
-            builder.Entity<BoardgameDTO>()
-                .HasMany(bg => bg.Stores)
-                .WithMany(c => c.Boardgames);
+            var boardgame = builder.Entity<BoardgameDTO>();
+            boardgame.HasMany(bg => bg.Stores).WithMany(c => c.Boardgames);
 
-            builder.Entity<ExchangeRateDTO>()
-                .HasKey(ex => new { ex.FromCurrencyId, ex.ToCurrencyId });
+            var exchangeRate = builder.Entity<ExchangeRateDTO>();
+            exchangeRate.HasKey(ex => new { ex.FromCurrencyId, ex.ToCurrencyId });
 
-            builder.Entity<HistoricalPriceDTO>()
-                .HasKey(h => new { h.StoreRefId, h.BoardGameRefId });
+            var historicalPrice = builder.Entity<HistoricalPriceDTO>();
+            historicalPrice.HasKey(h => new { h.StoreRefId, h.BoardGameRefId });
         }
     }
 }
