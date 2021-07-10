@@ -20,8 +20,6 @@ namespace BGScreener
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            //.AddJsonFile("secrets.json", optional: true)
-            //.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
             Configuration = builder.Build();
         }
@@ -31,7 +29,7 @@ namespace BGScreener
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<BGSniperContext>(options =>
+            services.AddDbContext<BGScreenerContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IStoreService, StoreService>();
@@ -46,6 +44,8 @@ namespace BGScreener
             services.AddControllers().AddNewtonsoftJson(op =>
                 op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
+            services.AddControllers(op => op.Filters.Add(new HttpResponseExceptionFilter()));
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddMvc(option => option.EnableEndpointRouting = false);
         }
@@ -58,21 +58,21 @@ namespace BGScreener
 
                 using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
                 {
-                    var context = serviceScope.ServiceProvider.GetRequiredService<BGSniperContext>();
+                    var context = serviceScope.ServiceProvider.GetRequiredService<BGScreenerContext>();
                     context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
-                    serviceScope.ServiceProvider.GetService<BGSniperContext>().EnsureSeedData();
+                    serviceScope.ServiceProvider.GetService<BGScreenerContext>().EnsureSeedData();
                 }
             }
 
             if (env.IsProduction())
             {
-                //todo: Create migration
+                //Todo: Create migration
                 using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
                 {
-                    serviceScope.ServiceProvider.GetService<BGSniperContext>().Database.EnsureCreated();
-                    serviceScope.ServiceProvider.GetService<BGSniperContext>().Database.Migrate();
-                    serviceScope.ServiceProvider.GetService<BGSniperContext>().EnsureSeedData();
+                    serviceScope.ServiceProvider.GetService<BGScreenerContext>().Database.EnsureCreated();
+                    serviceScope.ServiceProvider.GetService<BGScreenerContext>().Database.Migrate();
+                    serviceScope.ServiceProvider.GetService<BGScreenerContext>().EnsureSeedData();
                 }
             }
 

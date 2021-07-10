@@ -7,7 +7,7 @@ namespace BGScreener
 {
     public static class BGSniperSeeder
     {
-        public static void EnsureSeedData(this BGSniperContext context)
+        public static void EnsureSeedData(this BGScreenerContext context)
         {
             if (context.AllMigrationsApplied())
             {
@@ -24,7 +24,6 @@ namespace BGScreener
                     euro.Countries.Add(germany);
                     real.Countries.Add(brasil);
                     dolar.Countries.Add(usa);
-
 
                     var glomhaven = context.Boardgame.Add(new BoardgameDTO() { GameName = "Gloomhaven" }).Entity;
                     var seventhContinent = context.Boardgame.Add(new BoardgameDTO() { GameName = "7Th Continent" }).Entity;

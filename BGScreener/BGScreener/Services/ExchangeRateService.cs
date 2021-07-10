@@ -6,9 +6,9 @@ namespace BGScreener.Services
 {
     public class ExchangeRateService : IExchangeRateService
     {
-        private readonly BGSniperContext _repository;
+        private readonly BGScreenerContext _repository;
 
-        public ExchangeRateService(BGSniperContext repository)
+        public ExchangeRateService(BGScreenerContext repository)
         {
             _repository = repository;
         }

@@ -2,9 +2,9 @@
 
 namespace BGScreener.DbModels
 {
-    public class BGSniperContext : DbContext
+    public class BGScreenerContext : DbContext
     {
-        public BGSniperContext(DbContextOptions<BGSniperContext> options) : base(options) { }
+        public BGScreenerContext(DbContextOptions<BGScreenerContext> options) : base(options) { }
 
         public DbSet<StoreDTO> Store { get; set; }
         public DbSet<CurrencyDTO> Currency { get; set; }
@@ -16,9 +16,10 @@ namespace BGScreener.DbModels
         protected override void OnModelCreating(ModelBuilder builder)
         {
             var currency = builder.Entity<CurrencyDTO>();
-            currency.HasMany(c => c.Countries).WithOne();
+            currency.HasMany(c => c.Countries).WithOne().OnDelete(DeleteBehavior.NoAction);
             currency.Property(c => c.IsoCode).HasMaxLength(3);
             currency.HasIndex(c => c.IsoCode).IsUnique();
+
 
             var country = builder.Entity<CountryDTO>();
             country.HasOne(c => c.Currency).WithMany(c => c.Countries).IsRequired();

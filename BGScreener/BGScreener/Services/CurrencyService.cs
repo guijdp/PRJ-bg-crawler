@@ -9,10 +9,10 @@ namespace BGScreener.Services
 {
     public class CurrencyService : ICurrencyService
     {
-        private readonly BGSniperContext _repository;
+        private readonly BGScreenerContext _repository;
         private readonly IMapper _mapper;
 
-        public CurrencyService(BGSniperContext currencyRepository, IMapper mapper)
+        public CurrencyService(BGScreenerContext currencyRepository, IMapper mapper)
         {
             _repository = currencyRepository;
             _mapper = mapper;
@@ -26,16 +26,15 @@ namespace BGScreener.Services
         {
             try
             {
-                var entry = _repository.Currency
-                    .Add(_mapper.Map<CurrencyDTO>(currency)).Entity;
+                var entry = _repository.Currency.Add(_mapper.Map<CurrencyDTO>(currency)).Entity;
 
                 _repository.SaveChanges();
                 return entry;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                //Todo: Log error here
-                throw e;
+                //Todo: Log error
+                throw ex.InnerException;
             }
         }
 
@@ -43,41 +42,29 @@ namespace BGScreener.Services
         {
             try
             {
-                var entry = Find(currency.Id);
-                if (entry == null)
-                    throw new Exception($"Currency with Id {currency.Id} does not exist");
-
-                _repository.Currency.Attach(entry);
-
-                entry.ModifiedDate = DateTime.UtcNow;
-                entry.IsoCode = currency.IsoCode;
-                _repository.SaveChanges();
-                return entry;
-            }
-            catch (Exception ex)
-            {
-                //Todo: Log error
-                throw ex;
-            }
-        }
-
-        public CurrencyDTO Delete(CurrencyDTO currency)
-        {
-            var entry = Find(currency.Id);
-            if (entry == null)
-                return null;
-
-            try
-            {
-                _repository.Currency.Remove(entry);
+                _repository.Currency.Attach(currency).Property(x => x.IsoCode).IsModified = true;
                 _repository.SaveChanges();
                 return currency;
             }
             catch (Exception ex)
             {
                 //Todo: Log error
-                _repository.Entry(entry).Reload();
                 throw ex.InnerException;
+            }
+        }
+
+        public CurrencyDTO Delete(CurrencyDTO currency)
+        {
+            try
+            {
+                _repository.Currency.Remove(currency);
+                _repository.SaveChanges();
+                return currency;
+            }
+            catch (Exception ex)
+            {
+                //Todo: Log error
+                throw ex;
             }
         }
     }

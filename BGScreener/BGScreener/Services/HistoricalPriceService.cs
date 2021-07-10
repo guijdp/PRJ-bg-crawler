@@ -6,9 +6,9 @@ namespace BGScreener.Services
 {
     public class HistoricalPriceService : IHistoricalPriceService
     {
-        private readonly BGSniperContext _repository;
+        private readonly BGScreenerContext _repository;
 
-        public HistoricalPriceService(BGSniperContext repository)
+        public HistoricalPriceService(BGScreenerContext repository)
         {
             _repository = repository;
         }

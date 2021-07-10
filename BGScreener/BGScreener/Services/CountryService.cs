@@ -10,10 +10,10 @@ namespace BGScreener.Services
 {
     public class CountryService : ICountryService
     {
-        private readonly BGSniperContext _repository;
+        private readonly BGScreenerContext _repository;
         private readonly IMapper _mapper;
 
-        public CountryService(BGSniperContext countryRepository, IMapper mapper)
+        public CountryService(BGScreenerContext countryRepository, IMapper mapper)
         {
             _repository = countryRepository;
             _mapper = mapper;

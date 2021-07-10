@@ -9,10 +9,10 @@ namespace BGScreener.Services
 {
     public class StoreService : IStoreService
     {
-        private readonly BGSniperContext _repository;
+        private readonly BGScreenerContext _repository;
         private readonly IMapper _mapper;
 
-        public StoreService(BGSniperContext storeRepository, IMapper mapper)
+        public StoreService(BGScreenerContext storeRepository, IMapper mapper)
         {
             _repository = storeRepository;
             _mapper = mapper;

@@ -7,9 +7,9 @@ namespace BGScreener.Services
 {
     public class BoardgameService : IBoardgameService
     {
-        private readonly BGSniperContext _repository;
+        private readonly BGScreenerContext _repository;
 
-        public BoardgameService(BGSniperContext repository)
+        public BoardgameService(BGScreenerContext repository)
         {
             _repository = repository;
         }
