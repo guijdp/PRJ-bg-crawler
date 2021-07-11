@@ -19,7 +19,8 @@ namespace BGScreener.Services
             _mapper = mapper;
         }
 
-        public CountryDTO[] Get() => _repository.Country.Include(c => c.Currency).ToArray();
+        public CountryDTO[] Get() =>
+            _repository.Country.OrderBy(c => c.CountryName).Include(c => c.Currency).ToArray();
 
         public CountryDTO Find(Guid id) => _repository.Country.FirstOrDefault(c => c.Id == id);
 
@@ -27,20 +28,14 @@ namespace BGScreener.Services
         {
             try
             {
+                var model = _mapper.Map<CountryDTO>(country);
                 var currency = _repository.Currency.FirstOrDefault(c => c.IsoCode == country.Currency);
-                if (currency == null)
-                    throw new Exception($"Currency named {country.Currency} does not exist");
+                model.Currency = currency ?? model.Currency;
 
-                var entry = new CountryDTO()
-                {
-                    CountryName = country.Name,
-                    Currency = currency
-                };
-
-                _repository.Country.Add(entry);
+                var result = _repository.Country.Add(model).Entity;
                 _repository.SaveChanges();
 
-                return entry;
+                return result;
             }
             catch (Exception e)
             {
@@ -53,45 +48,29 @@ namespace BGScreener.Services
         {
             try
             {
-                var entry = Find(country.Id);
-                if (entry == null)
-                    throw new Exception($"Country with Id {country.Id} does not exist");
-
-                var currency = _repository.Currency.FirstOrDefault(c => c.IsoCode == country.Currency.IsoCode);
-                if (currency == null)
-                    throw new Exception($"Currency named {country.Currency} does not exist");
-
-                _repository.Country.Attach(entry);
-
-                entry.ModifiedDate = DateTime.UtcNow;
-                entry.CountryName = country.CountryName;
-                _repository.SaveChanges();
-                return entry;
-            }
-            catch (Exception ex)
-            {
-                //Todo: Log error
-                throw ex;
-            }
-        }
-
-        public CountryDTO Delete(CountryDTO country)
-        {
-            var entry = Find(country.Id);
-            if (entry == null)
-                return null;
-
-            try
-            {
-                _repository.Country.Remove(entry);
+                _repository.Country.Attach(country).Property(x => x.CountryName).IsModified = true;
                 _repository.SaveChanges();
                 return country;
             }
             catch (Exception ex)
             {
                 //Todo: Log error
-                _repository.Entry(entry).Reload();
                 throw ex.InnerException;
+            }
+        }
+
+        public CountryDTO Delete(CountryDTO country)
+        {
+            try
+            {
+                _repository.Country.Remove(country);
+                _repository.SaveChanges();
+                return country;
+            }
+            catch (Exception ex)
+            {
+                //Todo: Log error
+                throw ex;
             }
         }
     }

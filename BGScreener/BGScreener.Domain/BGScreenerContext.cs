@@ -20,9 +20,11 @@ namespace BGScreener.DbModels
             currency.Property(c => c.IsoCode).HasMaxLength(3);
             currency.HasIndex(c => c.IsoCode).IsUnique();
 
-
             var country = builder.Entity<CountryDTO>();
-            country.HasOne(c => c.Currency).WithMany(c => c.Countries).IsRequired();
+            country.HasIndex(c => c.CountryName).IsUnique();
+            country.Property(c => c.CountryName).HasMaxLength(30);
+            country.Navigation(c => c.Currency).IsRequired();
+            country.HasOne(c => c.Currency).WithMany(c => c.Countries);
 
             var store = builder.Entity<StoreDTO>();
             store.HasOne(s => s.Country).WithMany(c => c.Stores).IsRequired();

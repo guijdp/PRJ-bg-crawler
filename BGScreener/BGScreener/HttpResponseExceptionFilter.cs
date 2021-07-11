@@ -2,6 +2,7 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
 
 namespace BGScreener
 {
@@ -25,6 +26,9 @@ namespace BGScreener
 
             if (context.Exception is ArgumentNullException)
                 statusCode = HttpStatusCode.NotFound;
+
+            else if(context.Exception is DbUpdateConcurrencyException)
+                statusCode = HttpStatusCode.Conflict;
 
             data.Name = statusCode.ToString();
             context.Result = new ObjectResult(data)

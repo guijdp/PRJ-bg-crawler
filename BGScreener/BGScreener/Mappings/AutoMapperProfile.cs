@@ -11,6 +11,10 @@ namespace BGScreener.Mappings
             CreateMap<Currency, CurrencyDTO>()
                 .ForMember(dest => dest.IsoCode, opt => opt.MapFrom(src => src.IsoCode));
 
+            CreateMap<Country, CountryDTO>()
+                .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Name))
+                .ForPath(dest => dest.Currency.IsoCode, opt => opt.MapFrom(src => src.Currency));
+
             CreateMap<StoreDTO, Store>()
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.CountryName));
 
@@ -19,9 +23,6 @@ namespace BGScreener.Mappings
                 .ForMember(dest => dest.Currency, opt => opt.MapFrom(src => src.Currency.IsoCode));
 
             CreateMap<CurrencyDTO, Currency>();
-
-            //CreateMap<Country, DbcCountry>()
-            //    .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Name));
         }
     }
 }
