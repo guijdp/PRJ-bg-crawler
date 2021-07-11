@@ -15,6 +15,10 @@ namespace BGScreener.Mappings
                 .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Name))
                 .ForPath(dest => dest.Currency.IsoCode, opt => opt.MapFrom(src => src.Currency));
 
+            CreateMap<Store, StoreDTO>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForPath(dest => dest.Country.CountryName, opt => opt.MapFrom(src => src.Country));
+
             CreateMap<StoreDTO, Store>()
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.CountryName));
 

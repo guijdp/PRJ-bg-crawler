@@ -1,9 +1,9 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Linq;
+using AutoMapper;
 using BGScreener.DbModels;
 using BGScreener.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
 
 namespace BGScreener.Services
 {
@@ -18,7 +18,8 @@ namespace BGScreener.Services
             _mapper = mapper;
         }
 
-        public StoreDTO[] Get() => _repository.Store.Include(s => s.Country).ToArray();
+        public StoreDTO[] Get() => _repository.Store.OrderBy(s => s.Name)
+            .Include(s => s.Country).ToArray();
 
         public StoreDTO Find(Guid id) => _repository.Store.FirstOrDefault(s => s.Id == id);
 
@@ -26,20 +27,14 @@ namespace BGScreener.Services
         {
             try
             {
-                var country = _repository.Country.FirstOrDefault(c => c.CountryName == store.Country);
-                if (country == null)
-                    throw new Exception($"Country named {store.Country} does not exist");
+                var model = _mapper.Map<StoreDTO>(store);
+                var country = _repository.Country.FirstOrDefault(s => s.CountryName == store.Country);
+                model.Country = country ?? model.Country;
 
-                var entry = new StoreDTO()
-                {
-                    Name = store.Name,
-                    Country = country
-                };
-
-                _repository.Store.Add(entry);
+                var result = _repository.Store.Add(model).Entity;
                 _repository.SaveChanges();
 
-                return entry;
+                return result;
             }
             catch (Exception e)
             {
@@ -52,45 +47,29 @@ namespace BGScreener.Services
         {
             try
             {
-                var entry = Find(store.Id);
-                if (store == null)
-                    throw new Exception($"Store with Id {store.Id} does not exist");
-
-                var country = _repository.Country.FirstOrDefault(c => c.CountryName == store.Name);
-                if (country == null)
-                    throw new Exception($"Country named {store.Country} does not exist");
-
-
-                _repository.Store.Attach(entry);
-                entry.ModifiedDate = DateTime.UtcNow;
-                entry.Name = store.Name;
-                _repository.SaveChanges();
-                return entry;
-            }
-            catch (Exception ex)
-            {
-                //Todo: Log error
-                throw ex;
-            }
-        }
-
-        public StoreDTO Delete(StoreDTO store)
-        {
-            var entry = Find(store.Id);
-            if (entry == null)
-                throw new Exception($"Store with Id {store.Id} does not exist");
-
-            try
-            {
-                _repository.Store.Remove(entry);
+                _repository.Store.Attach(store).Property(x => x.Name).IsModified = true;
                 _repository.SaveChanges();
                 return store;
             }
             catch (Exception ex)
             {
                 //Todo: Log error
-                _repository.Entry(entry).Reload();
                 throw ex.InnerException;
+            }
+        }
+
+        public StoreDTO Delete(StoreDTO store)
+        {
+            try
+            {
+                _repository.Store.Remove(store);
+                _repository.SaveChanges();
+                return store;
+            }
+            catch (Exception ex)
+            {
+                //Todo: Log error
+                throw ex;
             }
         }
     }

@@ -16,18 +16,20 @@ namespace BGScreener.DbModels
         protected override void OnModelCreating(ModelBuilder builder)
         {
             var currency = builder.Entity<CurrencyDTO>();
+            currency.HasIndex(c => c.IsoCode).IsUnique();
             currency.HasMany(c => c.Countries).WithOne().OnDelete(DeleteBehavior.NoAction);
             currency.Property(c => c.IsoCode).HasMaxLength(3);
-            currency.HasIndex(c => c.IsoCode).IsUnique();
 
             var country = builder.Entity<CountryDTO>();
             country.HasIndex(c => c.CountryName).IsUnique();
-            country.Property(c => c.CountryName).HasMaxLength(30);
-            country.Navigation(c => c.Currency).IsRequired();
             country.HasOne(c => c.Currency).WithMany(c => c.Countries);
+            country.Navigation(c => c.Currency).IsRequired();
+            country.Property(c => c.CountryName).HasMaxLength(30);
 
             var store = builder.Entity<StoreDTO>();
+            store.HasIndex(s => s.Name).IsUnique();
             store.HasOne(s => s.Country).WithMany(c => c.Stores).IsRequired();
+            country.Property(c => c.CountryName).HasMaxLength(30);
 
             var boardgame = builder.Entity<BoardgameDTO>();
             boardgame.HasMany(bg => bg.Stores).WithMany(c => c.Boardgames);
