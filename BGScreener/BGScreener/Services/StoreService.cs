@@ -28,7 +28,7 @@ namespace BGScreener.Services
             try
             {
                 var model = _mapper.Map<StoreDTO>(store);
-                var country = _repository.Country.FirstOrDefault(s => s.CountryName == store.Country);
+                var country = _repository.Country.FirstOrDefault(s => s.Name == store.Country);
                 model.Country = country ?? model.Country;
 
                 var result = _repository.Store.Add(model).Entity;

@@ -21,15 +21,15 @@ namespace BGScreener.DbModels
             currency.Property(c => c.IsoCode).HasMaxLength(3);
 
             var country = builder.Entity<CountryDTO>();
-            country.HasIndex(c => c.CountryName).IsUnique();
+            country.HasIndex(c => c.Name).IsUnique();
             country.HasOne(c => c.Currency).WithMany(c => c.Countries);
             country.Navigation(c => c.Currency).IsRequired();
-            country.Property(c => c.CountryName).HasMaxLength(30);
+            country.Property(c => c.Name).HasMaxLength(30);
 
             var store = builder.Entity<StoreDTO>();
             store.HasIndex(s => s.Name).IsUnique();
             store.HasOne(s => s.Country).WithMany(c => c.Stores).IsRequired();
-            country.Property(c => c.CountryName).HasMaxLength(30);
+            country.Property(c => c.Name).HasMaxLength(30);
 
             var boardgame = builder.Entity<BoardgameDTO>();
             boardgame.HasMany(bg => bg.Stores).WithMany(c => c.Boardgames);

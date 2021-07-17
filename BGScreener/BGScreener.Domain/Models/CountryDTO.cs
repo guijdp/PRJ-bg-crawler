@@ -10,7 +10,7 @@ namespace BGScreener.DbModels
             Stores = new List<StoreDTO>();
         }
 
-        public string CountryName { get; set; }
+        public string Name { get; set; }
 
         [JsonProperty(Order = int.MaxValue)]
         public CurrencyDTO Currency { get; set; }

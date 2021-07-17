@@ -10,7 +10,7 @@ namespace BGScreener.DbModels
             Stores = new List<StoreDTO>();
         }
 
-        public string GameName { get; set; }
+        public string Name { get; set; }
 
         [JsonProperty(Order = int.MaxValue)]
         public List<StoreDTO> Stores { get; set; }

@@ -1,9 +1,10 @@
 ﻿using System;
 
-namespace MFU.BGCrawler.Common.Models
+namespace BGScreener.Model
 {
-    class Boardgame
+    public class Boardgame
     {
         public Guid Id { get; set; }
+        public string Name { get; set; }
     }
 }

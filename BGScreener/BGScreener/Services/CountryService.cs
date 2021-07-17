@@ -20,7 +20,7 @@ namespace BGScreener.Services
         }
 
         public CountryDTO[] Get() =>
-            _repository.Country.OrderBy(c => c.CountryName).Include(c => c.Currency).ToArray();
+            _repository.Country.OrderBy(c => c.Name).Include(c => c.Currency).ToArray();
 
         public CountryDTO Find(Guid id) => _repository.Country.FirstOrDefault(c => c.Id == id);
 
@@ -48,7 +48,7 @@ namespace BGScreener.Services
         {
             try
             {
-                _repository.Country.Attach(country).Property(x => x.CountryName).IsModified = true;
+                _repository.Country.Attach(country).Property(x => x.Name).IsModified = true;
                 _repository.SaveChanges();
                 return country;
             }

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using BGScreener.DbModels;
 using BGScreener.Model;
 
@@ -12,18 +13,18 @@ namespace BGScreener.Mappings
                 .ForMember(dest => dest.IsoCode, opt => opt.MapFrom(src => src.IsoCode));
 
             CreateMap<Country, CountryDTO>()
-                .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForPath(dest => dest.Currency.IsoCode, opt => opt.MapFrom(src => src.Currency));
 
             CreateMap<Store, StoreDTO>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForPath(dest => dest.Country.CountryName, opt => opt.MapFrom(src => src.Country));
+                .ForPath(dest => dest.Country.Name, opt => opt.MapFrom(src => src.Country));
 
-            CreateMap<StoreDTO, Store>()
-                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.CountryName));
+            CreateMap<Boardgame, BoardgameDTO>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
 
             CreateMap<CountryDTO, Country>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.CountryName))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Currency, opt => opt.MapFrom(src => src.Currency.IsoCode));
 
             CreateMap<CurrencyDTO, Currency>();
